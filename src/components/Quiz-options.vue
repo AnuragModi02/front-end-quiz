@@ -1,0 +1,62 @@
+<template>
+    <div>
+        <img
+            :src="imageUrl"
+            :style="{ backgroundColor: backgroundColor }"
+        >
+        <h3>{{ text }}</h3>
+    </div>
+</template>
+
+<script>
+export default {
+    props: {
+        text: String,
+        backgroundColor: String
+    },
+
+    mounted() {
+        console.log('imgUrl:', this.imgUrl);
+        console.log('backgroundColor:', this.backgroundColor);
+    },
+
+    computed: {
+        imageUrl() {
+            const icons = {
+                HTML: require('@/assets/images/icon-html.svg'),
+                CSS: require('@/assets/images/icon-css.svg'),
+                Javascript: require('@/assets/images/icon-js.svg'),
+                Accessibility: require('@/assets/images/icon-accessibility.svg')
+            };
+            return icons[this.text] || null; // Return null if no matching icon
+        }
+    },
+}
+</script>
+
+<style scoped>
+img {
+    height: 56px;
+    width: 56px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+h3 {
+    font-size: 28px;
+}
+
+div {
+    height: 96px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    border-radius: 20px;
+    background-color: #3B4D66;
+    padding-left: 20px;
+}
+
+h3 {
+    height: 28px;
+}
+</style>
