@@ -26,7 +26,6 @@ export default {
 .toggle-container {
     display: flex;
     gap: 10px;
-    align-self: flex-end;
 }
 
 .bright .dark {

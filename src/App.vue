@@ -1,7 +1,13 @@
 <template>
   <div class="background-container">
     <div class="container">
-      <ToggleComponent />
+      <div
+        class="header"
+        :style="{ 'justify-content': headerJustifyContent }"
+      >
+        <SelectedComponentMeta v-if="selectedQuiz" />
+        <ToggleComponent />
+      </div>
       <HelloWorld />
     </div>
 
@@ -11,12 +17,30 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import ToggleComponent from './components/ToggleComponent.vue';
+import SelectedComponentMeta from './components/SelectedComponentMeta.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    ToggleComponent
+    ToggleComponent,
+    SelectedComponentMeta
+  },
+
+  data() {
+    return {
+      justifycontent: 'flex-end'
+    }
+  },
+  computed: {
+    ...mapGetters({
+      selectedQuiz: 'quizOptions/selectedQuiz'
+    }),
+    headerJustifyContent() {
+      return this.selectedQuiz ? 'space-between' : 'flex-end';
+    },
+
   }
 }
 </script>
@@ -54,5 +78,12 @@ export default {
   flex-direction: column;
   justify-content: center;
   gap: 30px;
+}
+
+
+.header {
+  display: flex;
+  align-items: center;
+  height: 56px;
 }
 </style>

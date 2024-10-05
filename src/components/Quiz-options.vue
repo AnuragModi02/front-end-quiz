@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-on:click="setSelectedQuiz(this.text)">
         <img
             :src="imageUrl"
             :style="{ backgroundColor: backgroundColor }"
@@ -9,6 +9,7 @@
 </template>
 
 <script>
+
 export default {
     props: {
         text: String,
@@ -16,8 +17,7 @@ export default {
     },
 
     mounted() {
-        console.log('imgUrl:', this.imgUrl);
-        console.log('backgroundColor:', this.backgroundColor);
+        this.setLogoDetails();
     },
 
     computed: {
@@ -28,9 +28,24 @@ export default {
                 Javascript: require('@/assets/images/icon-js.svg'),
                 Accessibility: require('@/assets/images/icon-accessibility.svg')
             };
+
             return icons[this.text] || null; // Return null if no matching icon
         }
     },
+    methods: {
+        setSelectedQuiz(quizType) {
+            this.$store.dispatch('quizOptions/setSelectedQuiz', quizType);
+        },
+        setLogoDetails() {
+            this.$store.dispatch(
+                'quizOptions/setLogoDetails',
+                {
+                    name: this.text,
+                    backgroundColor: this.backgroundColor,
+                    backgroundImage: this.imageUrl
+                })
+        }
+    }
 }
 </script>
 
@@ -54,6 +69,10 @@ div {
     border-radius: 20px;
     background-color: #3B4D66;
     padding-left: 20px;
+}
+
+div:hover {
+    cursor: pointer;
 }
 
 h3 {
