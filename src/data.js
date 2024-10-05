@@ -1,4 +1,4 @@
-{
+const questionairee = {
     "quizzes": [
         {
             "title": "HTML",
@@ -426,3 +426,5 @@
         }
     ]
 }
+
+export default questionairee.quizzes;

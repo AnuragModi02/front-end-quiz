@@ -1,63 +1,93 @@
 <template>
-  <div class="welcome-container">
-    <div class="text-section">
-      <div class="text">
-        <div class="welcome-text-container">
-          <p class="welcome-text-row-1">Welcome to the </p>
-          <p class="welcome-text-row-2">Frontend Quiz! </p>
+  <div
+    class="wrapper"
+    v-if="!isAnyQuizSelected"
+  >
+    <div class="welcome-container">
+      <div class="text-section">
+        <div class="text">
+          <div class="welcome-text-container">
+            <p class="welcome-text-row-1">Welcome to the </p>
+            <p class="welcome-text-row-2">Frontend Quiz! </p>
+          </div>
+          <p class="pick-a-subject">Pick a subject to get started.</p>
         </div>
-        <p class="pick-a-subject">Pick a subject to get started.</p>
       </div>
-
-    </div>
-    <div class="quiz-options">
-      <QuizOptions
-        text="HTML"
-        background-color="#FFF1E9"
-      >
-      </QuizOptions>
-      <QuizOptions
-        text="CSS"
-        background-color="#E0FDEF"
-      >
-      </QuizOptions>
-      <QuizOptions
-        text="Javascript"
-        background-color="#EBF0FF"
-      >
-      </QuizOptions>
-      <QuizOptions
-        text="Accessibility"
-        background-color="#F6E7FF"
-      >
-      </QuizOptions>
+      <div class="quiz-options">
+        <QuizOptions
+          text="HTML"
+          background-color="#FFF1E9"
+          :is-questionnaire=false
+        >
+        </QuizOptions>
+        <QuizOptions
+          text="CSS"
+          background-color="#E0FDEF"
+          :is-questionnaire=false
+        >
+        </QuizOptions>
+        <QuizOptions
+          text="JavaScript"
+          background-color="#EBF0FF"
+          :is-questionnaire=false
+        >
+        </QuizOptions>
+        <QuizOptions
+          text="Accessibility"
+          background-color="#F6E7FF"
+          :is-questionnaire=false
+        >
+        </QuizOptions>
+      </div>
     </div>
   </div>
+  <div
+    v-else
+    class="wrapper"
+  >
+    <div class="questionnaire">
+      <Questions v-if="isAnyQuizSelected"></Questions>
+      <Answers v-if="isAnyQuizSelected"></Answers>
+    </div>
+  </div>
+
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import Questions from './questionnaire/QuestionsComponent.vue';
+import Answers from './questionnaire/AnswersComponent.vue';
 import QuizOptions from './Quiz-options.vue';
 
 export default {
   components: {
+    Questions,
+    Answers,
     QuizOptions
+  },
+  computed: {
+    ...mapGetters({
+      selectedQuiz: 'quizOptions/selectedQuiz',
+    }),
+    isAnyQuizSelected() {
+      return this.selectedQuiz != null;
+    },
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .welcome-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-content: center;
-  align-content: center;
-  height: 564px;
+  height: 100%;
   color: white;
 }
 
 .text-section {
   text-align: start;
+  width: 465px;
 }
 
 .text {
@@ -95,5 +125,18 @@ export default {
   gap: 10px;
   justify-content: space-between;
   width: 100%;
+}
+
+.questionnaire {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  color: white;
+}
+
+.wrapper {
+  height: 564px;
 }
 </style>

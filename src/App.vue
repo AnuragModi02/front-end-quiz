@@ -58,8 +58,6 @@ export default {
   color: #2c3e50;
   background-color: #313E51;
   height: 100vh;
-  font-family: MyWebFont;
-  font-weight: lighter;
 }
 
 .background-container {
@@ -77,7 +75,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 30px;
+  gap: 70px;
 }
 
 

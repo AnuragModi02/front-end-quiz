@@ -2,8 +2,9 @@ const quizOptions = {
     namespaced: true,
 
     state: () => ({ 
-      selectedQuiz: '',
-      logoDetails: [{ }]
+      selectedQuiz: null,
+      logoDetails: [{ }],
+      currentQuestionNumber: 1
     }),
 
     mutations: { 
@@ -16,6 +17,9 @@ const quizOptions = {
                 backgroundColor: value.backgroundColor,
                 backgroundImage: value.backgroundImage
             });
+      },
+      currentQuestionNumber(state){
+        state.currentQuestionNumber += 1;
       }
     },
 
@@ -25,6 +29,9 @@ const quizOptions = {
       },
       setLogoDetails(context, value){
         context.commit('setLogoDetails', value);
+      },
+      currentQuestionNumber(context,value){
+        context.commit('currentQuestionNumber', value);
       }
     },
 
@@ -34,6 +41,9 @@ const quizOptions = {
       },
       logoDetails(state){
         return state.logoDetails;
+      },
+      currentQuestionNumber(state){
+        return state.currentQuestionNumber;
       }
     }
   };

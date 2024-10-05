@@ -1,9 +1,19 @@
 <template>
-    <div v-on:click="setSelectedQuiz(this.text)">
+    <div
+        v-on:click="onClick(this.text)"
+        class="options-or-images"
+    >
         <img
+            v-if="!isQuestionnaire"
             :src="imageUrl"
             :style="{ backgroundColor: backgroundColor }"
         >
+        <div
+            class="left-text"
+            v-else
+        >
+            {{ leftText }}
+        </div>
         <h3>{{ text }}</h3>
     </div>
 </template>
@@ -13,7 +23,9 @@
 export default {
     props: {
         text: String,
-        backgroundColor: String
+        backgroundColor: String,
+        isQuestionnaire: Boolean,
+        leftText: String
     },
 
     mounted() {
@@ -25,7 +37,7 @@ export default {
             const icons = {
                 HTML: require('@/assets/images/icon-html.svg'),
                 CSS: require('@/assets/images/icon-css.svg'),
-                Javascript: require('@/assets/images/icon-js.svg'),
+                JavaScript: require('@/assets/images/icon-js.svg'),
                 Accessibility: require('@/assets/images/icon-accessibility.svg')
             };
 
@@ -33,8 +45,11 @@ export default {
         }
     },
     methods: {
-        setSelectedQuiz(quizType) {
-            this.$store.dispatch('quizOptions/setSelectedQuiz', quizType);
+        onClick(quizType) {
+            if (!this.isQuestionnaire) {
+                this.$store.dispatch('quizOptions/setSelectedQuiz', quizType);
+            }
+
         },
         setLogoDetails() {
             this.$store.dispatch(
@@ -59,9 +74,10 @@ img {
 
 h3 {
     font-size: 28px;
+    font-weight: bolder;
 }
 
-div {
+.options-or-images {
     height: 96px;
     display: flex;
     align-items: center;
@@ -76,6 +92,23 @@ div:hover {
 }
 
 h3 {
-    height: 28px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-inline: 10px;
+}
+
+.left-text {
+    color: #626C7F;
+    font-size: 28px;
+    height: 56px;
+    width: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 5px;
+    font-weight: bolder;
 }
 </style>
