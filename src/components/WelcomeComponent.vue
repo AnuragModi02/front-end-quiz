@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="wrapper"
-    v-if="!isAnyQuizSelected"
-  >
+  <div class="wrapper">
     <div class="welcome-container">
       <div class="text-section">
         <div class="text">
@@ -41,38 +38,14 @@
       </div>
     </div>
   </div>
-  <div
-    v-else
-    class="wrapper"
-  >
-    <div class="questionnaire">
-      <Questions v-if="isAnyQuizSelected"></Questions>
-      <Answers v-if="isAnyQuizSelected"></Answers>
-    </div>
-  </div>
-
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import Questions from './questionnaire/QuestionsComponent.vue';
-import Answers from './questionnaire/AnswersComponent.vue';
-import QuizOptions from './Quiz-options.vue';
-
+import QuizOptions from './QuizOptions.vue';
 export default {
   components: {
-    Questions,
-    Answers,
     QuizOptions
   },
-  computed: {
-    ...mapGetters({
-      selectedQuiz: 'quizOptions/selectedQuiz',
-    }),
-    isAnyQuizSelected() {
-      return this.selectedQuiz != null;
-    },
-  }
 }
 </script>
 
@@ -125,18 +98,5 @@ export default {
   gap: 10px;
   justify-content: space-between;
   width: 100%;
-}
-
-.questionnaire {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-content: center;
-  align-content: center;
-  height: 100%;
-  color: white;
-}
-
-.wrapper {
-  height: 564px;
 }
 </style>

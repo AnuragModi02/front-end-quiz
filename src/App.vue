@@ -8,14 +8,14 @@
         <SelectedComponentMeta v-if="selectedQuiz" />
         <ToggleComponent />
       </div>
-      <HelloWorld />
+      <HomeComponent />
     </div>
 
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HomeComponent from './components/HomeComponent.vue'
 import ToggleComponent from './components/ToggleComponent.vue';
 import SelectedComponentMeta from './components/SelectedComponentMeta.vue';
 import { mapGetters } from 'vuex';
@@ -23,7 +23,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    HomeComponent,
     ToggleComponent,
     SelectedComponentMeta
   },

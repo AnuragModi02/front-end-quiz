@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import QuizOptions from '../Quiz-options.vue';
+import QuizOptions from '../QuizOptions.vue';
 import { mapGetters } from 'vuex';
 import questionnaire from '@/data';
 
@@ -90,5 +90,9 @@ export default {
 .button p {
     width: 205px;
     font-family: MyWebFont;
+}
+
+.button:hover {
+    cursor: pointer;
 }
 </style>
