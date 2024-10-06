@@ -64,8 +64,10 @@ export default {
   height: 636px;
 }
 
-
 .background-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
@@ -75,12 +77,12 @@ export default {
 
 .container {
   max-width: 1160px;
-  margin: 0 auto;
   height: 100%;
   display: grid;
   justify-content: normal;
   padding: 40px;
   overflow: auto;
+  flex-grow: 1;
 }
 
 .header {

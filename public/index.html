@@ -1,11 +1,42 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en"> <!-- Specify language -->
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <style>
+      *, *::before, *::after {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+      }
+
+      body {
+          font-family: 'MyWebFont', sans-serif; /* Added fallback */
+          font-weight: lighter;
+          height: 100vh;
+      }
+
+      #app {
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          text-align: center;
+          color: #2c3e50;
+          background-color: #313E51;
+          height: 100%;
+      }
+
+      button {
+          font-family: 'MyWebFont', sans-serif; /* Added fallback */
+      }
+
+      @font-face {
+          font-family: 'MyWebFont';
+          src: url('../src/assets/fonts/Rubik-VariableFont_wght.ttf') format('truetype'); /* Corrected path */
+      }
+    </style>
   </head>
   <body>
     <noscript>
@@ -15,36 +46,3 @@
     <!-- built files will be auto injected -->
   </body>
 </html>
-
-<style>
-*, *::before, *::after
-{
-    box-sizing: border-box;
-    margin: 0px;
-    padding: 0px;
-}
-
-body{
-  font-family: MyWebFont;
-  font-weight: lighter;
-  height: 100vh;
-}
-
-#app {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  background-color: #313E51;
-  height: 100%;
-}
-
-button{
-  font-family: MyWebFont;
-}
-
-@font-face {
-  font-family: 'MyWebFont';
-  src: url('../src/assets//fonts/Rubik-VariableFont_wght.ttf');
-}
-</style>
