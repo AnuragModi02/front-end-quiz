@@ -99,8 +99,8 @@ export default {
   height: 456px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  justify-content: space-between;
+  gap: 25px;
+  justify-content: flex-start;
   width: 100%;
 }
 
