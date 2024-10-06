@@ -50,12 +50,18 @@ export default {
     width: 100%;
     height: 8px;
     position: relative;
+    background-color: #3B4D66;
 }
 
 .progress-bar {
-    height: 7px;
+    height: 100%;
     background-color: #A729F5;
     position: absolute;
     transition: width 0.3s;
+    padding: 5px;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
 }
 </style>

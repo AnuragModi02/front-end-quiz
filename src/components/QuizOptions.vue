@@ -3,7 +3,7 @@
         :disabled="isCurrentQuestionAnswered"
         v-on:click="onClick(this.text)"
         class="options-or-images"
-        :style="{ border: borderStyle }"
+        :style="{ border: borderStyle, height: height }"
     >
         <img
             v-if="!isQuestionnaire"
@@ -112,6 +112,9 @@ export default {
         },
         currentQuestion() {
             return this.questionnaire.find(x => x.title == this.selectedQuiz).questions[this.currentQuestionNumber - 1];
+        },
+        height() {
+            return this.isQuestionnaire ? '92px' : '96px';
         }
     },
     methods: {

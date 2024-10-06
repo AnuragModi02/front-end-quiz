@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="answer-container">
         <QuizOptions
             :index=1
             :text=currentOptions[0]
@@ -58,6 +58,16 @@
         >
             <p>Next Question</p>
         </button>
+        <div
+            class="validation"
+            v-if="!isCurrentQuestionAnswered && this.isSubmitAttempted && this.selectedAnswer == 0"
+        >
+            <img
+                :src="require('../../assets/images/icon-error.svg')"
+                alt="Error Icon"
+            >
+            <p> please select an answer</p>
+        </div>
     </div>
 </template>
 
@@ -77,7 +87,8 @@ export default {
         return {
             questionnaire: questionnaire,
             selectedAnswer: 0,
-            isCurrentQuestionAnswered: false
+            isCurrentQuestionAnswered: false,
+            isSubmitAttempted: false
         }
     },
     computed: {
@@ -97,7 +108,10 @@ export default {
     },
     methods: {
         setIsCurrentQuestionAnswered() {
-            this.isCurrentQuestionAnswered = true;
+            this.isSubmitAttempted = true;
+            if (this.selectedAnswer > 0) {
+                this.isCurrentQuestionAnswered = true;
+            }
         },
         loadNextQuestion() {
 
@@ -108,6 +122,7 @@ export default {
             this.$emit("updateCurrentQuestion");
             this.selectedAnswer = 0;
             this.isCurrentQuestionAnswered = false;
+            this.isSubmitAttempted = false;
         },
         updateSelectedAnswer(value) {
             this.selectedAnswer = value;
@@ -118,18 +133,18 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.answer-container {
     width: 564px;
     height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    justify-content: space-between;
+    gap: 25px;
+    justify-content: flex-start;
     width: 100%;
 }
 
 .button {
-    height: 96px;
+    height: 92px;
     display: flex;
     align-items: center;
     border-radius: 20px;
@@ -151,5 +166,14 @@ export default {
 .button:hover {
     cursor: pointer;
     caret-color: black;
+}
+
+.validation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: #F4F6FA;
+    font-size: 24px;
 }
 </style>

@@ -61,10 +61,10 @@ export default {
 
 <style scoped>
 .home-wrapper {
-  height: 564px;
+  height: 636px;
 }
 
 .assessment-wrapper {
-  height: 564px;
+  height: 636px;
 }
 </style>
