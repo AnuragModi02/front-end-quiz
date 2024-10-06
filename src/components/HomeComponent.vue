@@ -78,19 +78,18 @@ export default {
   margin: 0 auto;
   height: 100%;
   display: grid;
-  grid-auto-rows: auto 1fr;
   justify-content: normal;
-  gap: 70px;
   padding: 40px;
+  overflow: scroll;
 }
 
 .header {
   display: flex;
   align-items: center;
-  height: 56px;
+  height: 100%;
 }
 
-@media(max-width:800px) {
+@media(max-width:1400px) {
   .container {
     gap: 40px;
   }

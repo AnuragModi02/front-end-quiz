@@ -108,10 +108,6 @@ export default {
         grid-row-gap: 25px;
     }
 
-
-}
-
-@media (max-width: 800px) {
     .main-question h1 {
         font-size: 20px;
     }

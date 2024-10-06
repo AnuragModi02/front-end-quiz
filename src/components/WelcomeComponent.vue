@@ -121,9 +121,6 @@ export default {
   .pick-a-subject {
     font-size: 14px;
   }
-}
-
-@media(max-width: 800px) {
 
   .quiz-options {
     justify-content: flex-start;

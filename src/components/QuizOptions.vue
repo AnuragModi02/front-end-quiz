@@ -152,6 +152,7 @@ img {
     width: 56px;
     padding: 5px;
     border-radius: 5px;
+    margin-block: 10px;
 }
 
 h3 {
@@ -163,10 +164,10 @@ h3 {
     align-items: center;
     color: white;
     flex-grow: 1;
+    margin-block: 10px;
 }
 
 .options-or-images {
-    height: 96px;
     display: flex;
     align-items: center;
     gap: 30px;
@@ -191,9 +192,10 @@ button:hover {
     border-radius: 5px;
     font-weight: bolder;
     flex-shrink: 0;
+    margin-block: 10px;
 }
 
-@media(max-width: 800px) {
+@media(max-width: 1400px) {
     h3 {
         font-size: 18px;
         margin-block: 10px;
@@ -209,10 +211,6 @@ button:hover {
         height: 40px;
         width: 40px;
         margin-block: 10px;
-    }
-
-    .options-or-images {
-        height: auto;
     }
 }
 </style>

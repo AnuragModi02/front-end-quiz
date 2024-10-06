@@ -50,7 +50,7 @@ h2 {
     font-weight: bolder;
 }
 
-@media(max-width:800px) {
+@media(max-width:1400) {
     img {
         height: 40px;
         width: 40px;

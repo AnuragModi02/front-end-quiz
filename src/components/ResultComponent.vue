@@ -115,9 +115,7 @@ export default {
     .result-container {
         grid-template-columns: 1fr;
     }
-}
 
-@media(max-width: 800px) {
     .quiz-completed {
         font-size: 40px;
     }

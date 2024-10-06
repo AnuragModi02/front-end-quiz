@@ -184,7 +184,7 @@ export default {
     }
 }
 
-@media(max-width: 800px) {
+@media(max-width: 1400px) {
     .button {
         font-size: 18px;
         height: 64px;
