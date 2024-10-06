@@ -80,7 +80,7 @@ export default {
   display: grid;
   justify-content: normal;
   padding: 40px;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .header {
