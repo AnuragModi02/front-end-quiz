@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="welcome-wrapper">
     <div class="welcome-container">
       <div class="text-section">
         <div class="text">

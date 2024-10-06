@@ -1,6 +1,6 @@
 <template>
-    <div class="wrapper">
-        <div class="container">
+    <div class="question-wrapper">
+        <div class="question-container">
             <div class="question-number">
                 <p>Question {{ this.currentQuestionNumber }} of {{ totalQuestions }}</p>
             </div>
@@ -11,6 +11,7 @@
                 <ProgressContainer></ProgressContainer>
             </div>
         </div>
+        <Answers></Answers>
     </div>
 </template>
 
@@ -18,10 +19,11 @@
 import questionnaire from '@/data';
 import { mapGetters } from 'vuex';
 import ProgressContainer from '../ProgressContainer.vue';
-
+import Answers from './AnswersComponent.vue';
 export default {
     components: {
-        ProgressContainer
+        ProgressContainer,
+        Answers
     },
     data() {
         return {
@@ -49,11 +51,15 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
-    width: 465px;
+.question-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    height: 100%;
+    color: white;
 }
 
-.container {
+.question-container {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr auto;
