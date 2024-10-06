@@ -100,7 +100,7 @@ export default {
 @media (max-width: 1400px) {
     .question-wrapper {
         grid-template-columns: 1fr;
-        grid-row-gap: 100px;
+        grid-row-gap: 60px;
     }
 
     .question-container {
