@@ -2,16 +2,21 @@
     <div class="question-wrapper">
         <div class="question-container">
             <div class="question-number">
-                <p>Question {{ this.currentQuestionNumber }} of {{ totalQuestions }}</p>
+                <p>Question {{ currentQuestionNumber }} of {{ totalQuestions }}</p>
             </div>
             <div class="main-question">
                 <h1>{{ currentQuestion }}</h1>
             </div>
             <div class="progress">
-                <ProgressContainer></ProgressContainer>
+                <ProgressContainer :current-question-number="currentQuestionNumber" />
             </div>
         </div>
-        <Answers></Answers>
+        <Answers
+            :current-question-number="currentQuestionNumber"
+            :is-current-question-answered="isCurrentQuestionAnswered"
+            @updateCurrentQuestion="updateCurrentQuestion"
+            @updateIsCurrentQuestionAnswered="updateIsCurrentQuestionAnswered"
+        />
     </div>
 </template>
 
@@ -20,31 +25,43 @@ import questionnaire from '@/data';
 import { mapGetters } from 'vuex';
 import ProgressContainer from '../ProgressContainer.vue';
 import Answers from './AnswersComponent.vue';
+
 export default {
     components: {
         ProgressContainer,
-        Answers
+        Answers,
     },
     data() {
         return {
-            questionnaire: questionnaire
-        }
+            questionnaire: questionnaire,
+            currentQuestionNumber: 1,
+            isCurrentQuestionAnswered: false
+        };
     },
     computed: {
         ...mapGetters({
             selectedQuiz: 'quizOptions/selectedQuiz',
-            currentQuestionNumber: 'quizOptions/currentQuestionNumber'
         }),
         questionnaireByCategory() {
-            return this.questionnaire.find(x => x.title == this.selectedQuiz).questions;
+            const category = this.questionnaire.find(x => x.title === this.selectedQuiz);
+            return category ? category.questions : [];
         },
         totalQuestions() {
             const totalQuestions = this.questionnaireByCategory.length;
-            this.$store.dispatch('quizOptions/setTotalQuestionNumberForCurrentlySelectedCategory', totalQuestions)
+            this.$store.dispatch('quizOptions/setTotalQuestionNumberForCurrentlySelectedCategory', totalQuestions);
             return totalQuestions;
         },
         currentQuestion() {
-            return this.questionnaireByCategory[this.currentQuestionNumber - 1].question;
+            return this.questionnaireByCategory[this.currentQuestionNumber - 1]?.question || '';
+        }
+    },
+    methods: {
+        updateCurrentQuestion() {
+            this.currentQuestionNumber += 1;
+            this.isCurrentQuestionAnswered = false;
+        },
+        updateIsCurrentQuestionAnswered() {
+            this.isCurrentQuestionAnswered = true;
         }
     }
 }

@@ -13,6 +13,7 @@
         <div
             class="left-text"
             v-else
+            :style="{ backgroundColor: dynamicBackgroundColor, color: color }"
         >
             {{ leftText }}
         </div>
@@ -38,7 +39,9 @@ export default {
         backgroundColor: String,
         isQuestionnaire: Boolean,
         leftText: String,
-        selectedAnswer: Number
+        selectedAnswer: Number,
+        currentQuestionNumber: Number,
+        isCurrentQuestionAnswered: Boolean
     },
 
     data() {
@@ -54,8 +57,6 @@ export default {
     computed: {
         ...mapGetters({
             selectedQuiz: 'quizOptions/selectedQuiz',
-            currentQuestionNumber: 'quizOptions/currentQuestionNumber',
-            isCurrentQuestionAnswered: 'quizOptions/isCurrentQuestionAnswered'
         }),
         imageUrl() {
             const icons = {
@@ -73,19 +74,39 @@ export default {
                 return 'none';
             }
 
-            return this.isCurrentQuestionAnswered ? '3px solid #26D782' : '3px solid #A729F5';
+            if (!this.isCurrentQuestionAnswered) {
+                return '3px solid #A729F5';
+            }
+            return this.isAnswerCorrect ? '3px solid #26D782' : '3px solid #EE5454';
+        },
+
+        dynamicBackgroundColor() {
+            if (!this.isCurrentItemSelected) {
+                return 'white';
+            }
+            if (!this.isCurrentQuestionAnswered) {
+                return '#A729F5';
+            }
+            return this.isAnswerCorrect ? '#26D782' : '#EE5454';
+        },
+
+        color() {
+            if (!this.isCurrentItemSelected) {
+                return '#626C7F';
+            }
+            return 'white';
         },
 
         isCurrentItemSelected() {
             return this.index == this.selectedAnswer;
         },
         isAnswerCorrect() {
-            const selectedOption = this.currentQuestion.options[this.selectedAnswer - 1];
+            const selectedOption = this.currentQuestion.options[this.index - 1];
             const isCorrect = selectedOption === this.currentQuestion.answer;
 
-            if (isCorrect) {
-                this.$store.dispatch('quizOptions/updateScore');
-            }
+            // console.log('currentQuestion', this.currentQuestion)
+            // console.log('selectedOption', selectedOption)
+            // console.log('correct', this.currentQuestion.answer)
 
             return isCorrect;
         },
@@ -102,7 +123,11 @@ export default {
                 return;
             }
 
-            this.$store.dispatch('quizOptions/setSelectedAnswer', this.index);
+            if (this.isAnswerCorrect) {
+                this.$store.dispatch('quizOptions/updateScore');
+            }
+
+            this.$emit("updateSelectedAnswer", this.index);
 
         },
         setLogoDetails() {
@@ -129,6 +154,12 @@ img {
 h3 {
     font-size: 28px;
     font-weight: bolder;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: white;
+    flex-grow: 1;
 }
 
 .options-or-images {
@@ -146,16 +177,6 @@ button:hover {
     cursor: pointer;
 }
 
-h3 {
-    height: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-inline: 10px;
-    color: white;
-    flex-grow: 1;
-}
-
 .left-text {
     color: #626C7F;
     font-size: 28px;
@@ -164,8 +185,8 @@ h3 {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: white;
     border-radius: 5px;
     font-weight: bolder;
+    flex-shrink: 0;
 }
 </style>

@@ -2,10 +2,9 @@
     <div>
         <div class="progress-container">
             <div
-                class="progess-bar"
+                class="progress-bar"
                 :style="{ width: calculateWidth }"
-            >
-            </div>
+            ></div>
         </div>
     </div>
 </template>
@@ -15,28 +14,32 @@ import questionnaire from '@/data';
 import { mapGetters } from 'vuex';
 
 export default {
+    props: {
+        currentQuestionNumber: {
+            type: Number,
+            required: true
+        }
+    },
     data() {
         return {
             questionnaire: questionnaire
-        }
+        };
     },
     computed: {
         ...mapGetters({
             selectedQuiz: 'quizOptions/selectedQuiz',
-            currentQuestionNumber: 'quizOptions/currentQuestionNumber',
             selectedAnswer: 'quizOptions/selectedAnswer',
-            isCurrentQuestionAnswered: 'quizOptions/isCurrentQuestionAnswered'
         }),
         questionnaireByCategory() {
-            return this.questionnaire.find(x => x.title == this.selectedQuiz).questions;
+            const category = this.questionnaire.find(x => x.title === this.selectedQuiz);
+            return category ? category.questions : [];
         },
         totalQuestions() {
             return this.questionnaireByCategory.length;
         },
         calculateWidth() {
-            let width = (this.currentQuestionNumber / this.totalQuestions) * 100;
-            width = isNaN(width) ? 0 : width;
-            return `${width}%`;
+            const width = (this.currentQuestionNumber / this.totalQuestions) * 100;
+            return isNaN(width) ? '0%' : `${width}%`;
         }
     }
 }
@@ -49,10 +52,10 @@ export default {
     position: relative;
 }
 
-.progess-bar {
-    width: 100%;
+.progress-bar {
     height: 7px;
     background-color: #A729F5;
     position: absolute;
+    transition: width 0.3s;
 }
 </style>

@@ -7,6 +7,9 @@
             left-text="A"
             :is-questionnaire="true"
             :selectedAnswer="this.selectedAnswer"
+            :current-question-number="currentQuestionNumber"
+            :is-current-question-answered="isCurrentQuestionAnswered"
+            @updateSelectedAnswer="updateSelectedAnswer"
         ></QuizOptions>
         <QuizOptions
             :index=2
@@ -15,6 +18,9 @@
             left-text="B"
             :is-questionnaire="true"
             :selectedAnswer="this.selectedAnswer"
+            :current-question-number="currentQuestionNumber"
+            :is-current-question-answered="isCurrentQuestionAnswered"
+            @updateSelectedAnswer="updateSelectedAnswer"
         ></QuizOptions>
         <QuizOptions
             :index=3
@@ -23,6 +29,9 @@
             :is-questionnaire="true"
             left-text="C"
             :selectedAnswer="this.selectedAnswer"
+            :current-question-number="currentQuestionNumber"
+            :is-current-question-answered="isCurrentQuestionAnswered"
+            @updateSelectedAnswer="updateSelectedAnswer"
         ></QuizOptions>
         <QuizOptions
             :index=4
@@ -31,6 +40,9 @@
             left-text="D"
             :is-questionnaire="true"
             :selectedAnswer="this.selectedAnswer"
+            :current-question-number="currentQuestionNumber"
+            :is-current-question-answered="isCurrentQuestionAnswered"
+            @updateSelectedAnswer="updateSelectedAnswer"
         ></QuizOptions>
         <button
             class="button"
@@ -56,20 +68,22 @@ import { mapGetters } from 'vuex';
 import questionnaire from '@/data';
 
 export default {
+    props: {
+        currentQuestionNumber: Number,
+        isCurrentQuestionAnswered: Boolean
+    },
     components: {
         QuizOptions
     },
     data() {
         return {
-            questionnaire: questionnaire
+            questionnaire: questionnaire,
+            selectedAnswer: 0
         }
     },
     computed: {
         ...mapGetters({
             selectedQuiz: 'quizOptions/selectedQuiz',
-            currentQuestionNumber: 'quizOptions/currentQuestionNumber',
-            selectedAnswer: 'quizOptions/selectedAnswer',
-            isCurrentQuestionAnswered: 'quizOptions/isCurrentQuestionAnswered',
             totalQuestionNumberForCurrentlySelectedCategory: 'quizOptions/totalQuestionNumberForCurrentlySelectedCategory'
 
         }),
@@ -85,12 +99,14 @@ export default {
     },
     methods: {
         setIsCurrentQuestionAnswered() {
-            this.$store.dispatch('quizOptions/setIsCurrentQuestionAnswered', true);
+            this.$emit("updateIsCurrentQuestionAnswered", true);
         },
         loadNextQuestion() {
-            // reset the value
-            this.$store.dispatch('quizOptions/setIsCurrentQuestionAnswered', false);
-            this.$store.dispatch('quizOptions/currentQuestionNumber', this.currentQuestionNumber + 1);
+            this.$emit("updateCurrentQuestion");
+            this.selectedAnswer = 0;
+        },
+        updateSelectedAnswer(value) {
+            this.selectedAnswer = value;
         }
     }
 }
