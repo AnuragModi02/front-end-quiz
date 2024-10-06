@@ -7,7 +7,8 @@ const quizOptions = {
       currentQuestionNumber: 1,
       selectedAnswer: 0,
       isCurrentQuestionAnswered: false,
-      totalQuestionNumberForCurrentlySelectedCategory: 0
+      totalQuestionNumberForCurrentlySelectedCategory: 0,
+      score: 0
     }),
 
     mutations: { 
@@ -32,6 +33,9 @@ const quizOptions = {
       },
       setTotalQuestionNumberForCurrentlySelectedCategory(state, value){
         state.totalQuestionNumberForCurrentlySelectedCategory = value;
+      },
+      updateScore(state){
+        state.score = state.score + 1;
       }
     },
 
@@ -53,7 +57,10 @@ const quizOptions = {
       },
       setTotalQuestionNumberForCurrentlySelectedCategory(context,value){
         context.commit('setTotalQuestionNumberForCurrentlySelectedCategory', value);
-      }
+      },
+      updateScore(context){
+        context.commit('updateScore');
+      },
     },
 
     getters: { 
@@ -74,6 +81,9 @@ const quizOptions = {
       },
       totalQuestionNumberForCurrentlySelectedCategory(state){
         return state.totalQuestionNumberForCurrentlySelectedCategory;
+      },
+      score(state){
+        return state.score;
       }
     }
   };

@@ -43,7 +43,7 @@
             class="button"
             v-else
             @click="loadNextQuestion()"
-            :disabled="currentQuestionNumber >= totalQuestionNumberForCurrentlySelectedCategory"
+            :disabled="isLastQuestion"
         >
             <p>Next Question</p>
         </button>
@@ -78,6 +78,9 @@ export default {
         },
         currentOptions() {
             return this.questionnaireByCategory[this.currentQuestionNumber - 1].options;
+        },
+        isLastQuestion() {
+            return this.currentQuestionNumber >= this.totalQuestionNumberForCurrentlySelectedCategory;
         }
     },
     methods: {

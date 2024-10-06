@@ -80,7 +80,14 @@ export default {
             return this.index == this.selectedAnswer;
         },
         isAnswerCorrect() {
-            return this.currentQuestion.options[this.selectedAnswer - 1] == this.currentQuestion.answer;
+            const selectedOption = this.currentQuestion.options[this.selectedAnswer - 1];
+            const isCorrect = selectedOption === this.currentQuestion.answer;
+
+            if (isCorrect) {
+                this.$store.dispatch('quizOptions/updateScore');
+            }
+
+            return isCorrect;
         },
         currentQuestion() {
             return this.questionnaire.find(x => x.title == this.selectedQuiz).questions[this.currentQuestionNumber - 1];
