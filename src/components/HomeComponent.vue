@@ -60,10 +60,6 @@ export default {
 </script>
 
 <style scoped>
-.home-wrapper {
-  height: 636px;
-}
-
 .background-container {
   display: flex;
   justify-content: center;
