@@ -180,7 +180,7 @@ export default {
 
 @media (max-width: 1400px) {
     .answer-container {
-        height: 516px;
+        height: 100%;
     }
 }
 

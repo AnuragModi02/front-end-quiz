@@ -64,17 +64,35 @@ export default {
   height: 636px;
 }
 
-.assessment-wrapper {
-  height: 636px;
+
+.background-container {
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-image: url(/src/assets/images/pattern-background-desktop-dark.svg);
+  background-size: cover;
 }
 
 .container {
+  max-width: 1160px;
+  margin: 0 auto;
+  height: 100%;
+  display: grid;
+  grid-auto-rows: auto 1fr;
+  justify-content: normal;
+  gap: 70px;
   padding: 40px;
 }
 
-@media(max-width: 1400px) {
+.header {
+  display: flex;
+  align-items: center;
+  height: 56px;
+}
+
+@media(max-width:800px) {
   .container {
-    justify-content: flex-start;
+    gap: 40px;
   }
 }
 </style>
