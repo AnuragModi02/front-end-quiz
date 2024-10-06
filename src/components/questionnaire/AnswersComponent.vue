@@ -181,6 +181,7 @@ export default {
 @media (max-width: 1400px) {
     .answer-container {
         height: 100%;
+        gap: 15px;
     }
 }
 
