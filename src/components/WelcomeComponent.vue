@@ -103,4 +103,39 @@ export default {
   justify-content: space-between;
   width: 100%;
 }
+
+@media (max-width: 1400px) {
+  .welcome-container {
+    grid-template-columns: 1fr;
+    grid-row-gap: 60px;
+  }
+
+  .text {
+    gap: 20px;
+  }
+
+  .welcome-text-container p {
+    font-size: 40px;
+  }
+
+  .pick-a-subject {
+    font-size: 14px;
+  }
+}
+
+@media(max-width: 800px) {
+
+  .quiz-options {
+    justify-content: flex-start;
+    gap: 20px;
+  }
+
+  .text-section,
+  .text,
+  .welcome-wrapper,
+  .quiz-options {
+    width: 100%;
+  }
+
+}
 </style>

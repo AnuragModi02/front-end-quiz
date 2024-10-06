@@ -67,4 +67,14 @@ export default {
 .assessment-wrapper {
   height: 636px;
 }
+
+.container {
+  padding: 40px;
+}
+
+@media(max-width: 1400px) {
+  .container {
+    justify-content: flex-start;
+  }
+}
 </style>

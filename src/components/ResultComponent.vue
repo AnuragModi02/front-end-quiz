@@ -110,4 +110,48 @@ export default {
     font-size: 24px;
     color: #ABC1E1
 }
+
+@media(max-width:1400px) {
+    .result-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 800px) {
+    .quiz-completed {
+        font-size: 40px;
+    }
+
+    .scored {
+        font-size: 40px;
+    }
+
+    .final-score {
+        font-size: 88px;
+    }
+
+    .out-of {
+        font-size: 18px;
+    }
+
+    .button {
+        height: 56px;
+        border-radius: 10px;
+        font-size: 18px;
+    }
+
+    .result-container {
+        grid-template-rows: auto 1fr;
+        grid-row-gap: 50px;
+    }
+
+    .result-container p {
+        text-align: center;
+    }
+
+    .score {
+        justify-content: space-evenly;
+        max-height: 300px;
+    }
+}
 </style>

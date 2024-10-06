@@ -3,7 +3,7 @@
         :disabled="isCurrentQuestionAnswered"
         v-on:click="onClick(this.text)"
         class="options-or-images"
-        :style="{ border: borderStyle, height: height }"
+        :style="{ border: borderStyle }"
     >
         <img
             v-if="!isQuestionnaire"
@@ -156,7 +156,7 @@ img {
 
 h3 {
     font-size: 28px;
-    font-weight: bolder;
+    font-weight: normal;
     height: 100%;
     display: flex;
     justify-content: flex-start;
@@ -191,5 +191,28 @@ button:hover {
     border-radius: 5px;
     font-weight: bolder;
     flex-shrink: 0;
+}
+
+@media(max-width: 800px) {
+    h3 {
+        font-size: 18px;
+        margin-block: 10px;
+    }
+
+    img {
+        height: 40px;
+        width: 40px;
+        margin-block: 10px;
+    }
+
+    .left-text {
+        height: 40px;
+        width: 40px;
+        margin-block: 10px;
+    }
+
+    .options-or-images {
+        height: auto;
+    }
 }
 </style>

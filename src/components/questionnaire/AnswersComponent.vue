@@ -176,4 +176,27 @@ export default {
     color: #F4F6FA;
     font-size: 24px;
 }
+
+
+@media (max-width: 1400px) {
+    .answer-container {
+        height: 516px;
+    }
+}
+
+@media(max-width: 800px) {
+    .button {
+        font-size: 18px;
+        height: 64px;
+    }
+
+    .validation {
+        font-size: 18px;
+    }
+
+    .validation img {
+        height: 32px;
+        width: 32px;
+    }
+}
 </style>

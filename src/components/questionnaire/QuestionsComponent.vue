@@ -75,7 +75,7 @@ export default {
     grid-template-rows: auto 1fr auto;
     justify-items: start;
     row-gap: 30px;
-    width: 465px;
+    width: 425px;
     height: 465px;
 }
 
@@ -95,5 +95,29 @@ export default {
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
+}
+
+@media (max-width: 1400px) {
+    .question-wrapper {
+        grid-template-columns: 1fr;
+        grid-row-gap: 100px;
+    }
+
+    .question-container {
+        height: auto;
+        grid-row-gap: 25px;
+    }
+
+
+}
+
+@media (max-width: 800px) {
+    .main-question h1 {
+        font-size: 20px;
+    }
+
+    .question-container {
+        width: 100%;
+    }
 }
 </style>

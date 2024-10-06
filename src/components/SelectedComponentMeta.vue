@@ -49,4 +49,15 @@ h2 {
     align-self: center;
     font-weight: bolder;
 }
+
+@media(max-width:800px) {
+    img {
+        height: 40px;
+        width: 40px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+}
 </style>
