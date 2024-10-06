@@ -117,7 +117,7 @@ export default {
     methods: {
         onClick(quizType) {
 
-            // if it's 'select quiz' screen, then set the selected quiz and return
+            // if it's 'select quiz' screen, then set the selected quiz, reset the values and return
             if (!this.isQuestionnaire) {
                 this.$store.dispatch('quizOptions/setSelectedQuiz', quizType);
                 return;

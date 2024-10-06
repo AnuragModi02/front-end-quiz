@@ -5,7 +5,8 @@ const quizOptions = {
       selectedQuiz: null,
       logoDetails: [{ }],
       totalQuestionNumberForCurrentlySelectedCategory: 0,
-      score: 0
+      score: 0,
+      isAllQuestionsAnswered: false
     }),
 
     mutations: { 
@@ -22,8 +23,11 @@ const quizOptions = {
       setTotalQuestionNumberForCurrentlySelectedCategory(state, value){
         state.totalQuestionNumberForCurrentlySelectedCategory = value;
       },
-      updateScore(state){
-        state.score = state.score + 1;
+      updateScore(state, value){
+        state.score = !value ? state.score + 1 : value;
+      },
+      setIsAllQuestionsAnswered(state, value){
+        state.isAllQuestionsAnswered = value;
       }
     },
 
@@ -37,8 +41,11 @@ const quizOptions = {
       setTotalQuestionNumberForCurrentlySelectedCategory(context,value){
         context.commit('setTotalQuestionNumberForCurrentlySelectedCategory', value);
       },
-      updateScore(context){
-        context.commit('updateScore');
+      updateScore(context, value = 0){
+        context.commit('updateScore', value);
+      },
+      updateSetIsAllQuestionsAnswered(context, value){
+        context.commit('setIsAllQuestionsAnswered', value);
       },
     },
 
@@ -54,6 +61,9 @@ const quizOptions = {
       },
       score(state){
         return state.score;
+      },
+      isAllQuestionsAnswered(state){
+        return state.isAllQuestionsAnswered;
       }
     }
   };

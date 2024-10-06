@@ -1,47 +1,11 @@
 <template>
-  <div class="background-container">
-    <div class="container">
-      <div
-        class="header"
-        :style="{ 'justify-content': headerJustifyContent }"
-      >
-        <SelectedComponentMeta v-if="selectedQuiz" />
-        <ToggleComponent />
-      </div>
-      <HomeComponent />
-    </div>
-
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
-import HomeComponent from './components/HomeComponent.vue'
-import ToggleComponent from './components/ToggleComponent.vue';
-import SelectedComponentMeta from './components/SelectedComponentMeta.vue';
-import { mapGetters } from 'vuex';
 
 export default {
   name: 'App',
-  components: {
-    HomeComponent,
-    ToggleComponent,
-    SelectedComponentMeta
-  },
-
-  data() {
-    return {
-      justifycontent: 'flex-end'
-    }
-  },
-  computed: {
-    ...mapGetters({
-      selectedQuiz: 'quizOptions/selectedQuiz'
-    }),
-    headerJustifyContent() {
-      return this.selectedQuiz ? 'space-between' : 'flex-end';
-    },
-
-  }
 }
 </script>
 

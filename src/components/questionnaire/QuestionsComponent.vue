@@ -13,9 +13,7 @@
         </div>
         <Answers
             :current-question-number="currentQuestionNumber"
-            :is-current-question-answered="isCurrentQuestionAnswered"
             @updateCurrentQuestion="updateCurrentQuestion"
-            @updateIsCurrentQuestionAnswered="updateIsCurrentQuestionAnswered"
         />
     </div>
 </template>
@@ -35,7 +33,6 @@ export default {
         return {
             questionnaire: questionnaire,
             currentQuestionNumber: 1,
-            isCurrentQuestionAnswered: false
         };
     },
     computed: {
@@ -58,11 +55,7 @@ export default {
     methods: {
         updateCurrentQuestion() {
             this.currentQuestionNumber += 1;
-            this.isCurrentQuestionAnswered = false;
         },
-        updateIsCurrentQuestionAnswered() {
-            this.isCurrentQuestionAnswered = true;
-        }
     }
 }
 </script>

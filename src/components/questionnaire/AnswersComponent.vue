@@ -55,7 +55,6 @@
             class="button"
             v-else
             @click="loadNextQuestion()"
-            :disabled="isLastQuestion"
         >
             <p>Next Question</p>
         </button>
@@ -70,7 +69,6 @@ import questionnaire from '@/data';
 export default {
     props: {
         currentQuestionNumber: Number,
-        isCurrentQuestionAnswered: Boolean
     },
     components: {
         QuizOptions
@@ -78,14 +76,14 @@ export default {
     data() {
         return {
             questionnaire: questionnaire,
-            selectedAnswer: 0
+            selectedAnswer: 0,
+            isCurrentQuestionAnswered: false
         }
     },
     computed: {
         ...mapGetters({
             selectedQuiz: 'quizOptions/selectedQuiz',
             totalQuestionNumberForCurrentlySelectedCategory: 'quizOptions/totalQuestionNumberForCurrentlySelectedCategory'
-
         }),
         questionnaireByCategory() {
             return this.questionnaire.find(x => x.title == this.selectedQuiz).questions;
@@ -95,19 +93,25 @@ export default {
         },
         isLastQuestion() {
             return this.currentQuestionNumber >= this.totalQuestionNumberForCurrentlySelectedCategory;
-        }
+        },
     },
     methods: {
         setIsCurrentQuestionAnswered() {
-            this.$emit("updateIsCurrentQuestionAnswered", true);
+            this.isCurrentQuestionAnswered = true;
         },
         loadNextQuestion() {
+
+            if (this.isLastQuestion && this.isCurrentQuestionAnswered) {
+                return this.$store.dispatch('quizOptions/updateSetIsAllQuestionsAnswered', true);
+            }
+
             this.$emit("updateCurrentQuestion");
             this.selectedAnswer = 0;
+            this.isCurrentQuestionAnswered = false;
         },
         updateSelectedAnswer(value) {
             this.selectedAnswer = value;
-        }
+        },
     }
 }
 
