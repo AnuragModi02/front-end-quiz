@@ -1,7 +1,9 @@
 <template>
-    <div
+    <button
+        :disabled="isCurrentQuestionAnswered"
         v-on:click="onClick(this.text)"
         class="options-or-images"
+        :style="{ border: borderStyle }"
     >
         <img
             v-if="!isQuestionnaire"
@@ -14,18 +16,35 @@
         >
             {{ leftText }}
         </div>
-        <h3>{{ text }}</h3>
-    </div>
+        <h3>
+            {{ text }}
+        </h3>
+        <img
+            :src="isAnswerCorrect ? require('../assets/images/icon-correct.svg') : require('../assets/images/icon-error.svg')"
+            v-if="isQuestionnaire && isCurrentQuestionAnswered && isCurrentItemSelected"
+        >
+    </button>
 </template>
 
 <script>
 
+import { mapGetters } from 'vuex';
+import questionnaire from '@/data';
+
 export default {
     props: {
+        index: Number,
         text: String,
         backgroundColor: String,
         isQuestionnaire: Boolean,
-        leftText: String
+        leftText: String,
+        selectedAnswer: Number
+    },
+
+    data() {
+        return {
+            questionnaire: questionnaire
+        }
     },
 
     mounted() {
@@ -33,6 +52,11 @@ export default {
     },
 
     computed: {
+        ...mapGetters({
+            selectedQuiz: 'quizOptions/selectedQuiz',
+            currentQuestionNumber: 'quizOptions/currentQuestionNumber',
+            isCurrentQuestionAnswered: 'quizOptions/isCurrentQuestionAnswered'
+        }),
         imageUrl() {
             const icons = {
                 HTML: require('@/assets/images/icon-html.svg'),
@@ -42,13 +66,36 @@ export default {
             };
 
             return icons[this.text] || null; // Return null if no matching icon
+        },
+        borderStyle() {
+
+            if (!this.isCurrentItemSelected) {
+                return 'none';
+            }
+
+            return this.isCurrentQuestionAnswered ? '3px solid #26D782' : '3px solid #A729F5';
+        },
+
+        isCurrentItemSelected() {
+            return this.index == this.selectedAnswer;
+        },
+        isAnswerCorrect() {
+            return this.currentQuestion.options[this.selectedAnswer - 1] == this.currentQuestion.answer;
+        },
+        currentQuestion() {
+            return this.questionnaire.find(x => x.title == this.selectedQuiz).questions[this.currentQuestionNumber - 1];
         }
     },
     methods: {
         onClick(quizType) {
+
+            // if it's 'select quiz' screen, then set the selected quiz and return
             if (!this.isQuestionnaire) {
                 this.$store.dispatch('quizOptions/setSelectedQuiz', quizType);
+                return;
             }
+
+            this.$store.dispatch('quizOptions/setSelectedAnswer', this.index);
 
         },
         setLogoDetails() {
@@ -85,18 +132,21 @@ h3 {
     border-radius: 20px;
     background-color: #3B4D66;
     padding-left: 20px;
+    padding-right: 20px;
 }
 
-div:hover {
+button:hover {
     cursor: pointer;
 }
 
 h3 {
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     margin-inline: 10px;
+    color: white;
+    flex-grow: 1;
 }
 
 .left-text {

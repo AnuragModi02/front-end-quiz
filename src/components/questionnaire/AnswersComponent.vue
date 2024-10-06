@@ -1,31 +1,51 @@
 <template>
     <div class="container">
         <QuizOptions
+            :index=1
             :text=currentOptions[0]
             background-color="white"
             left-text="A"
             :is-questionnaire="true"
+            :selectedAnswer="this.selectedAnswer"
         ></QuizOptions>
         <QuizOptions
+            :index=2
             :text=currentOptions[1]
             background-color="white"
             left-text="B"
             :is-questionnaire="true"
+            :selectedAnswer="this.selectedAnswer"
         ></QuizOptions>
         <QuizOptions
+            :index=3
             :text=currentOptions[2]
             background-color="white"
             :is-questionnaire="true"
             left-text="C"
+            :selectedAnswer="this.selectedAnswer"
         ></QuizOptions>
         <QuizOptions
+            :index=4
             :text=currentOptions[3]
             background-color="white"
             left-text="D"
             :is-questionnaire="true"
+            :selectedAnswer="this.selectedAnswer"
         ></QuizOptions>
-        <button class="button">
+        <button
+            class="button"
+            v-if="!isCurrentQuestionAnswered"
+            v-on:click="setIsCurrentQuestionAnswered()"
+        >
             <p>Submit Answer</p>
+        </button>
+        <button
+            class="button"
+            v-else
+            @click="loadNextQuestion()"
+            :disabled="currentQuestionNumber >= totalQuestionNumberForCurrentlySelectedCategory"
+        >
+            <p>Next Question</p>
         </button>
     </div>
 </template>
@@ -47,14 +67,27 @@ export default {
     computed: {
         ...mapGetters({
             selectedQuiz: 'quizOptions/selectedQuiz',
-            currentQuestionNumber: 'quizOptions/currentQuestionNumber'
+            currentQuestionNumber: 'quizOptions/currentQuestionNumber',
+            selectedAnswer: 'quizOptions/selectedAnswer',
+            isCurrentQuestionAnswered: 'quizOptions/isCurrentQuestionAnswered',
+            totalQuestionNumberForCurrentlySelectedCategory: 'quizOptions/totalQuestionNumberForCurrentlySelectedCategory'
+
         }),
         questionnaireByCategory() {
             return this.questionnaire.find(x => x.title == this.selectedQuiz).questions;
         },
         currentOptions() {
-            console.log(this.questionnaireByCategory)
-            return this.questionnaireByCategory[this.currentQuestionNumber].options;
+            return this.questionnaireByCategory[this.currentQuestionNumber - 1].options;
+        }
+    },
+    methods: {
+        setIsCurrentQuestionAnswered() {
+            this.$store.dispatch('quizOptions/setIsCurrentQuestionAnswered', true);
+        },
+        loadNextQuestion() {
+            // reset the value
+            this.$store.dispatch('quizOptions/setIsCurrentQuestionAnswered', false);
+            this.$store.dispatch('quizOptions/currentQuestionNumber', this.currentQuestionNumber + 1);
         }
     }
 }
@@ -94,5 +127,6 @@ export default {
 
 .button:hover {
     cursor: pointer;
+    caret-color: black;
 }
 </style>

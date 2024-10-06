@@ -12,24 +12,28 @@
       </div>
       <div class="quiz-options">
         <QuizOptions
+          :index=1
           text="HTML"
           background-color="#FFF1E9"
           :is-questionnaire=false
         >
         </QuizOptions>
         <QuizOptions
+          :index=2
           text="CSS"
           background-color="#E0FDEF"
           :is-questionnaire=false
         >
         </QuizOptions>
         <QuizOptions
+          :index=3
           text="JavaScript"
           background-color="#EBF0FF"
           :is-questionnaire=false
         >
         </QuizOptions>
         <QuizOptions
+          :index=4
           text="Accessibility"
           background-color="#F6E7FF"
           :is-questionnaire=false

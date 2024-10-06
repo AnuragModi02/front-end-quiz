@@ -7,7 +7,9 @@
             <div class="main-question">
                 <h1>{{ currentQuestion }}</h1>
             </div>
-            <div class="div"></div>
+            <div class="progress">
+                <ProgressContainer></ProgressContainer>
+            </div>
         </div>
     </div>
 </template>
@@ -15,8 +17,12 @@
 <script>
 import questionnaire from '@/data';
 import { mapGetters } from 'vuex';
+import ProgressContainer from '../ProgressContainer.vue';
 
 export default {
+    components: {
+        ProgressContainer
+    },
     data() {
         return {
             questionnaire: questionnaire
@@ -31,10 +37,12 @@ export default {
             return this.questionnaire.find(x => x.title == this.selectedQuiz).questions;
         },
         totalQuestions() {
-            return this.questionnaireByCategory.length;
+            const totalQuestions = this.questionnaireByCategory.length;
+            this.$store.dispatch('quizOptions/setTotalQuestionNumberForCurrentlySelectedCategory', totalQuestions)
+            return totalQuestions;
         },
         currentQuestion() {
-            return this.questionnaireByCategory[this.currentQuestionNumber].question;
+            return this.questionnaireByCategory[this.currentQuestionNumber - 1].question;
         }
     }
 }
@@ -52,6 +60,7 @@ export default {
     justify-items: start;
     row-gap: 30px;
     width: 465px;
+    height: 465px;
 }
 
 .question-number p {
@@ -64,5 +73,11 @@ export default {
     font-size: 36px;
     text-align: start;
     font-weight: bolder;
+}
+
+.progress {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
 }
 </style>

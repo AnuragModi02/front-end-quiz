@@ -4,7 +4,10 @@ const quizOptions = {
     state: () => ({ 
       selectedQuiz: null,
       logoDetails: [{ }],
-      currentQuestionNumber: 1
+      currentQuestionNumber: 1,
+      selectedAnswer: 0,
+      isCurrentQuestionAnswered: false,
+      totalQuestionNumberForCurrentlySelectedCategory: 0
     }),
 
     mutations: { 
@@ -20,6 +23,15 @@ const quizOptions = {
       },
       currentQuestionNumber(state){
         state.currentQuestionNumber += 1;
+      },
+      setSelectedAnswer(state, value){
+        state.selectedAnswer = value;
+      },
+      setIsCurrentQuestionAnswered(state, value){
+        state.isCurrentQuestionAnswered = value;
+      },
+      setTotalQuestionNumberForCurrentlySelectedCategory(state, value){
+        state.totalQuestionNumberForCurrentlySelectedCategory = value;
       }
     },
 
@@ -32,6 +44,15 @@ const quizOptions = {
       },
       currentQuestionNumber(context,value){
         context.commit('currentQuestionNumber', value);
+      },
+      setSelectedAnswer(context,value){
+        context.commit('setSelectedAnswer', value);
+      },
+      setIsCurrentQuestionAnswered(context,value){
+        context.commit('setIsCurrentQuestionAnswered', value);
+      },
+      setTotalQuestionNumberForCurrentlySelectedCategory(context,value){
+        context.commit('setTotalQuestionNumberForCurrentlySelectedCategory', value);
       }
     },
 
@@ -44,6 +65,15 @@ const quizOptions = {
       },
       currentQuestionNumber(state){
         return state.currentQuestionNumber;
+      },
+      selectedAnswer(state){
+        return state.selectedAnswer;
+      },
+      isCurrentQuestionAnswered(state){
+        return state.isCurrentQuestionAnswered;
+      },
+      totalQuestionNumberForCurrentlySelectedCategory(state){
+        return state.totalQuestionNumberForCurrentlySelectedCategory;
       }
     }
   };
