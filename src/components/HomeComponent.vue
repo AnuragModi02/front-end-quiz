@@ -79,6 +79,7 @@ export default {
   padding: 40px;
   overflow: auto;
   flex-grow: 1;
+  grid-template-rows: auto 1fr;
 }
 
 .header {
